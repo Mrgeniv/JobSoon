@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "724537730443",
+    "project_id": "jobsoon-655c7",
+    "storage_bucket": "jobsoon-655c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724537730443:android:21abc22dea7855a04fbb8e",
+        "android_client_info": {
+          "package_name": "com.example.jobsoonapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwlCvwTu5Qc0cJqQZDg4uXucbCpq-fDcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
