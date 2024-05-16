@@ -8,8 +8,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jobsoonapp/authenticationScreen/login_screen.dart';
 import 'package:jobsoonapp/homeScreen/home_screen.dart';
+import 'package:jobsoonapp/models/company.dart';
 
+//models
 import 'package:jobsoonapp/models/person.dart' as personModel;
+import 'package:jobsoonapp/models/company.dart' as companyModel;
 
 class AuthenticationController extends GetxController
 {
@@ -62,7 +65,10 @@ class AuthenticationController extends GetxController
     String downloadUrlOfImage =  await snapshot.ref.getDownloadURL();
     return downloadUrlOfImage;
   }
-  createNewUserAccount(File imageProfile,
+
+  createNewUserAccount(
+                       //person infos
+                       File imageProfile,
                        String email, 
                        String password,
                        String name,
@@ -74,15 +80,14 @@ class AuthenticationController extends GetxController
                        String lookingForInaPartner,
                        String experienceYears,
                        String careerInterests,
-                       String userResumeLink,
-                    
+                       String userResumeLink,                    
                   ) async 
 {
     try
     {
       
       //1. authenticate user and create User with Email and Password
-      UserCredential credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -95,7 +100,7 @@ class AuthenticationController extends GetxController
       //3. upload pdf to storage
 
       
-      //3. save user info to firestore database
+      //3. save user & compnay infos to firestore database
       personModel.Person personInstace = personModel.Person(
         //Person info
         uid: FirebaseAuth.instance.currentUser!.uid,
@@ -116,6 +121,8 @@ class AuthenticationController extends GetxController
 
            
       );
+
+
       
 
 
@@ -126,14 +133,11 @@ class AuthenticationController extends GetxController
 
     } catch(errorMsg)
     {
-      Get.snackbar("Account Creation Unseccessful", "Error occurred: $errorMsg");
+      Get.snackbar("Accounterstellung fehlgeschlagen!", "Error occurred: $errorMsg");
     }
 
   }
-  createNewCompanyAccount() async
-  {
-    
-  }
+
   loginUser(String emailUser, String passwordUser) async
   {
     try
@@ -143,7 +147,7 @@ class AuthenticationController extends GetxController
         password: passwordUser,
       );
 
-      Get.snackbar("Anmeldung erfolgreich", "Du konntest dich jetzt einloggen.");
+      Get.snackbar("Anmeldung erfolgreich", "Sie konnten sich einloggen.");
 
       Get.to(HomeScreen());
     }
@@ -163,8 +167,58 @@ class AuthenticationController extends GetxController
       Get.to(HomeScreen());
     }
   }
+
   
+
+  createNewCompanyAccount(
+                       File imageProfile,
+                       String companyName,
+                       String companyEmail,
+                       String password,
+                       String recruitingPhoneNumber,
+
+  ) async
+  {
+    try
+    {
+      UserCredential companyCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: companyEmail,
+        password: password,
+      );
+
+      String urlOfDownloadedImage = await uploadImageToStorage(imageProfile);
+
+       companyModel.Company companyInstance = companyModel.Company(
+        companyId: FirebaseAuth.instance.currentUser!.uid, 
+        imageProfile: urlOfDownloadedImage,
+        companyName: companyName,
+        companyEmail: companyEmail,
+        password: password,
+        recruitingPhoneNumber: recruitingPhoneNumber,
+        publishedDateTime: DateTime.now().microsecondsSinceEpoch,
+       );
+
+       await FirebaseFirestore.instance.collection("companies").doc(FirebaseAuth.instance.currentUser!.uid).set(companyInstance.toJson());
+       
+       Get.snackbar("Account Created", "Congratulation your Account has been created!");
+       Get.to(const HomeScreen());
+    }catch(errorMsg)
+    {
+      Get.snackbar("Accounterstellung fehlgeschlagen!", "Error occurred: $errorMsg");
+    }
+      
+
+
+  }
   
+  checkIfCompanyIsLoggedIn(User? currentUser) async {
+  if (currentUser != null) {
+    // Überprüfe, ob der aktuelle Benutzer eine Unternehmens-UID entspricht
+    if (currentUser.uid == companyModel.Company().companyId) {
+      // Der Benutzer ist ein Unternehmen
+    }
+  }
+}
 
 
 
@@ -176,7 +230,10 @@ class AuthenticationController extends GetxController
     fireBaseCurrentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
     fireBaseCurrentUser.bindStream(FirebaseAuth.instance.authStateChanges());
 
-    ever(fireBaseCurrentUser, checkIfUserIsLoggedIn);
+    fireBaseCurrentUser.listen((user) {
+      checkIfUserIsLoggedIn(user);
+      checkIfCompanyIsLoggedIn(user);
+    });
 
   }
 

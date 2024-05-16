@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jobsoonapp/authenticationScreen/company_registration_screen.dart';
 import 'package:jobsoonapp/authenticationScreen/registration_screen.dart';
 import 'package:jobsoonapp/controllers/authentication_controller.dart';
 
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: MediaQuery.of(context).size.width - 36,
                 height: 50,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFFE8E9F3),
                   borderRadius: BorderRadius.all(
                     Radius.circular(12),
                   )
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () async
                   {
                     if(emailTextEditingController.text.trim().isNotEmpty &&
-                    passwordTextEditingController.text.trim().isNotEmpty )
+                    passwordTextEditingController.text.trim().isNotEmpty)
                     {
                       setState(() {
                         showProgressBar = true;
@@ -141,6 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
               //dont have an account create here button
+              
+            
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -159,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Get.to(RegistrationScreen());
                     },
                     child: const Text(
-                      "HIER ERSTELLEN",
+                      "ERSTELLEN",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -168,6 +171,43 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+
+                  
+
+                ],
+              ),
+
+              const SizedBox(
+                height: 30,
+              ),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   const Text(
+                    "Du hast keinen Unternehmensaccount? ",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: ()
+                    {
+                      Get.to(CompanyRegistrationScreen());
+                    },
+                    child: const Text(
+                      "ERSTELLEN",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
 

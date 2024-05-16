@@ -55,7 +55,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
             const SizedBox(
                 height: 100,
               ),
-
+              
               const Text(
                 "Account erstellen",
                 style: TextStyle(
@@ -377,7 +377,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                 ),
               ),
 
-              
+               const SizedBox(
+                height: 24,
+              ),
 
 
               //create account button

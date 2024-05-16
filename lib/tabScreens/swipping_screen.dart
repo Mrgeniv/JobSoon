@@ -27,83 +27,87 @@ class _SwippingScreenState extends State<SwippingScreen> {
             return Card(
               elevation: 5.0,
               margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    height: 200.0, // Adjust height as needed
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          eachProfileInfo.imageProfile.toString(),
+              child: SingleChildScrollView( // Wrap the card content with SingleChildScrollView
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      height: 200.0, // Adjust height as needed
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            eachProfileInfo.imageProfile.toString(),
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
                       ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                                colors: [Colors.black.withOpacity(0.7), Colors.transparent],
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [Colors.black.withOpacity(0.7), Colors.transparent],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 8.0,
-                          left: 8.0,
-                          child: Text(
-                            eachProfileInfo.name ?? "",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
+                          Positioned(
+                            bottom: 8.0,
+                            left: 8.0,
+                            child: Text(
+                              eachProfileInfo.name ?? "",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          eachProfileInfo.name ?? "",
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Profilbeschreibung: ${eachProfileInfo.profileHeading ?? ""}",
+                            style: const TextStyle(fontSize: 16.0),
                           ),
-                        ),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          "Age: ${eachProfileInfo.age ?? 0}",
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          "City: ${eachProfileInfo.city ?? ""}",
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          "Country: ${eachProfileInfo.country ?? ""}",
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          "Profile Heading: ${eachProfileInfo.profileHeading ?? ""}",
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                      
-
-                      
-                      ],
+                          const SizedBox(height: 8.0),
+                          Text(
+                            "Alter: ${eachProfileInfo.age ?? 0}",
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          Text(
+                            "Stadt: ${eachProfileInfo.city ?? ""}",
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          Text(
+                            "Land: ${eachProfileInfo.country ?? ""}",
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          Text(
+                            "Erfahrung in Jahren: ${eachProfileInfo.experienceYears}",
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          Text(
+                            "Karrierische Interessen: ${eachProfileInfo.careerInterests}",
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          Text(
+                            "Referenzenlink: ${eachProfileInfo.userResumeLink}",
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

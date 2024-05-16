@@ -34,13 +34,13 @@ class CustomTextFieldWidget extends StatelessWidget
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: const BorderSide(
-            color:  Colors.grey
+            color:  Color(0xFFE8E9F3),
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: const BorderSide(
-              color:  Colors.grey
+              color:  Color(0xFFE8E9F3),
           ),
         ),
 

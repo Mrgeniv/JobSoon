@@ -54,10 +54,10 @@ class Person
       imageProfile: dataSnapshot["imageProfile"],
       email: dataSnapshot['email'],
       password: dataSnapshot['password'],
-      age : dataSnapshot['age'] ,
-      phoneNo : dataSnapshot['phoneNo'] ,
-      city : dataSnapshot['city'] ,
-      country : dataSnapshot['country'] ,
+      age : dataSnapshot['age'],
+      phoneNo : dataSnapshot['phoneNo'],
+      city : dataSnapshot['city'],
+      country : dataSnapshot['country'],
       profileHeading : dataSnapshot['profileHeading'],
       lookingForInaPartner : dataSnapshot['lookingForInaPartner'],
       publishedDateTime: dataSnapshot['publishedDateTime'],
@@ -87,10 +87,7 @@ class Person
         "publishedDateTime" : publishedDateTime,
         "experienceYears" : experienceYears,
         "careerInterests" : careerInterests,
-        "userResumeLink" :userResumeLink,
-
-       
-        
+        "userResumeLink" : userResumeLink,
       };
 
 
